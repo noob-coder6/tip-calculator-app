@@ -3,22 +3,13 @@
 This is a solution to the [Tip calculator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/tip-calculator-app-ugJNGbJUX). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents
-
-- [Overview](#overview)
   - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
   - [Links](#links)
-- [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
   - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
+  - [Author](#author)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
-
-## Overview
 
 ### The challenge
 
@@ -28,85 +19,154 @@ Users should be able to:
 - See hover states for all interactive elements on the page
 - Calculate the correct tip and total cost of the bill per person
 
-### Screenshot
-
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
-
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
-
-## My process
+- Solution URL: [Solution URL](https://your-solution-url.com)
+- Live Site URL: [LIVE SITE URL](https://noob-coder6.github.io/tip-calculator-app/)
 
 ### Built with
 
 - Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
+- CSS custom properties (CSS variables)
+- CSS Flexbox
 - CSS Grid
 - Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+- Vanilla JavaScript (ES6+)
+- Real-time input validation
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+This project strengthened my understanding of form validation, state management, and creating interactive calculations with JavaScript.
 
-To see how you can add code snippets, see below:
+#### 1. Real-Time Input Validation and Error Handling
 
-```html
-<h1>Some HTML code I'm proud of</h1>
+I implemented dynamic error handling that provides immediate feedback when users enter invalid data (like zero people).
+
+```javascript
+function calculateTip() {
+  if (peopleValue >= 1) {
+    // Perform calculations
+    errorMessage.style.display = 'none';
+    peopleInput.classList.remove('error');
+  } else {
+    errorMessage.style.display = 'inline';
+    peopleInput.classList.add('error');
+  }
+}
 ```
+
+#### 2. Managing Application State
+
+I learned to maintain application state using JavaScript variables and update the UI based on state changes.
+
+```javascript
+let billValue = 0.0;
+let peopleValue = 1;
+let tipValue = 0.0;
+
+function handleBillInput() {
+  billValue = parseFloat(billInput.value) || 0;
+  calculateTip();
+  activateResetButton();
+}
+```
+
+#### 3. parseFloat() vs parseInt()
+
+Understanding when to use different parsing methods based on the data type needed:
+
+```javascript
+// For decimal values (currency)
+billValue = parseFloat(billInput.value) || 0;
+
+// For whole numbers (people count)
+peopleValue = parseInt(peopleInput.value) || 0;
+```
+
+#### 4. Dynamic Button States
+
+I implemented logic to enable/disable the reset button based on whether the user has entered any data.
+
+```javascript
+function activateResetButton() {
+  if (billValue > 0 || peopleValue > 0 || tipValue > 0) {
+    resetButton.disabled = false;
+  } else {
+    resetButton.disabled = true;
+  }
+}
+```
+
+#### 5. Currency Formatting with toFixed()
+
+Learned to format numbers as currency with exactly 2 decimal places:
+
+```javascript
+tipAmountDisplay.textContent = `$${tipPerPerson.toFixed(2)}`;
+// Input: 5.6666666 → Output: "$5.67"
+```
+
+#### 6. Event Delegation for Multiple Buttons
+
+Implemented efficient event handling for multiple tip selection buttons using data attributes:
+
+```javascript
+function handleTipClick(event) {
+  tipButtons.forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+  tipValue = parseFloat(event.target.dataset.tip);
+  customTipInput.value = '';
+  calculateTip();
+}
+```
+
+#### 7. CSS Grid with repeat() Function
+
+Used CSS Grid's repeat function to create responsive layouts with minimal code:
+
 ```css
-.proud-of-this-css {
-  color: papayawhip;
+.tip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
 }
-```
-```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
+
+@media (min-width: 900px) {
+  .tip-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+#### 8. Absolute Positioning for Input Icons
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+Learned to position icons inside input fields using absolute positioning:
+
+```css
+.input-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+```
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+In future projects, I want to focus on:
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
-
-### Useful resources
-
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+- **Input sanitization**: Preventing invalid characters in number inputs (e.g., multiple decimal points, negative numbers)
+- **Accessibility improvements**: Adding ARIA labels for screen readers, proper focus management, and keyboard navigation
+- **Animation feedback**: Adding smooth transitions when values update
+- **Currency selection**: Supporting multiple currencies and locale-based formatting
+- **Calculation history**: Implementing a feature to track previous calculations
+- **Progressive enhancement**: Ensuring the calculator works without JavaScript for basic functionality
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- Frontend Mentor - [@noob-coder6](https://www.frontendmentor.io/profile/noob-coder6)
+- GitHub - [@noob-coder6](https://github.com/noob-coder6)
