@@ -1,0 +1,236 @@
+:root {
+  --clr-primary-strong-cyan: hsl(172, 67%, 45%);
+  --clr-neutral-very-dark-cyan: hsl(183, 100%, 15%);
+  --clr-neutral-dark-grayish-cyan: hsl(186, 14%, 43%);
+  --clr-neutral-grayish-cyan: hsl(184, 14%, 56%);
+  --clr-neutral-light-grayish-cyan: hsl(185, 41%, 84%);
+  --clr-neutral-very-light-grayish-cyan: hsl(189, 41%, 97%);
+  --clr-neutral-white: hsl(0, 0%, 100%);
+  --clr-error: hsl(13, 71%, 61%);
+
+  --ff-main: 'Space Mono', monospace;
+  --fw-bold: 700;
+
+  --fs-form-inputs: 1.5rem; /* 24px */
+}
+
+/* --- CSS Reset --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--ff-main);
+  background-color: var(--clr-neutral-light-grayish-cyan);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
+.logo {
+  margin-bottom: 2.5rem;
+}
+
+.calculator {
+  background-color: var(--clr-neutral-white);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  max-width: 920px;
+  width: 100%;
+  display: grid;
+  gap: 2rem;
+}
+
+.calculator__inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.input-group label,
+.tip-selection label {
+  color: var(--clr-neutral-dark-grayish-cyan);
+  font-weight: var(--fw-bold);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.input-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.input-field {
+  width: 100%;
+  background-color: var(--clr-neutral-very-light-grayish-cyan);
+  border: 2px solid transparent;
+  border-radius: 0.3rem;
+  padding: 0.5rem 1rem;
+  font-family: var(--ff-main);
+  font-size: var(--fs-form-inputs);
+  font-weight: var(--fw-bold);
+  color: var(--clr-neutral-very-dark-cyan);
+  text-align: right;
+  outline: none;
+}
+
+.input-field::placeholder {
+  color: var(--clr-neutral-grayish-cyan);
+}
+
+.input-field:focus {
+  border-color: var(--clr-primary-strong-cyan);
+}
+
+.input-field.error {
+  border-color: var(--clr-error);
+}
+
+.input-group {
+  position: relative;
+}
+
+.input-group label {
+  display: flex;
+  justify-content: space-between;
+}
+
+.error-message {
+  color: var(--clr-error);
+  display: none;
+}
+
+.tip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.tip-btn {
+  background-color: var(--clr-neutral-very-dark-cyan);
+  color: var(--clr-neutral-white);
+  font-family: var(--ff-main);
+  font-size: var(--fs-form-inputs);
+  font-weight: var(--fw-bold);
+  border: none;
+  border-radius: 0.3rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.tip-btn:hover {
+  background-color: hsl(172, 67%, 75%);
+  color: var(--clr-neutral-very-dark-cyan);
+}
+
+.tip-btn.active {
+  background-color: var(--clr-primary-strong-cyan);
+  color: var(--clr-neutral-very-dark-cyan);
+}
+
+.tip-custom {
+  font-size: 1.25rem;
+}
+
+.calculator__results {
+  background-color: var(--clr-neutral-very-dark-cyan);
+  border-radius: 1rem;
+  padding: 2.5rem 1.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.result-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result-label {
+  color: var(--clr-neutral-white);
+  font-weight: var(--fw-bold);
+}
+
+.result-label span {
+  color: var(--clr-neutral-grayish-cyan);
+  font-size: 0.8rem;
+}
+
+.result-amount {
+  color: var(--clr-primary-strong-cyan);
+  font-size: 2rem;
+  font-weight: var(--fw-bold);
+  line-height: 1;
+}
+
+.reset-btn {
+  background-color: var(--clr-primary-strong-cyan);
+  color: var(--clr-neutral-very-dark-cyan);
+  font-family: var(--ff-main);
+  font-size: 1.25rem;
+  font-weight: var(--fw-bold);
+  text-transform: uppercase;
+  border: none;
+  border-radius: 0.3rem;
+  padding: 0.8rem;
+  cursor: pointer;
+  margin-top: auto;
+  transition: background-color 0.2s;
+}
+
+.reset-btn:hover {
+  background-color: hsl(172, 67%, 75%);
+}
+
+.reset-btn:disabled {
+  background-color: hsl(183, 79%, 24%);
+  color: hsl(183, 100%, 25%);
+  cursor: not-allowed;
+}
+
+.attribution {
+  font-size: 11px;
+  text-align: center;
+  margin-top: 2rem;
+}
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
+
+@media (min-width: 900px) {
+  body {
+    justify-content: center;
+  }
+  .logo {
+    margin-bottom: 5.5rem;
+  }
+  .calculator {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    padding: 2.5rem;
+  }
+  .tip-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .calculator__results {
+    padding: 2.5rem;
+    gap: 2.5rem;
+  }
+  .result-amount {
+    font-size: 3rem;
+  }
+}
